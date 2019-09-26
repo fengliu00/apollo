@@ -23,14 +23,95 @@ cd "$(dirname "${BASH_SOURCE[0]}")"
 
 ARCH=$(uname -m)
 
-update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 80 --slave /usr/bin/g++ g++ /usr/bin/g++-8 --slave /usr/bin/gcov gcov /usr/bin/gcov-8
-update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 70 --slave /usr/bin/g++ g++ /usr/bin/g++-7 --slave /usr/bin/gcov gcov /usr/bin/gcov-7
+apt clean
 
-GCCV=`gcc --version | grep \)\ 8.*.0$ `
-GPLUSV=`g++ --version | grep \)\ 8.*.0$ `
+apt update -y 
+apt install -y \
+    bc \
+    apt-transport-https \
+    build-essential \
+    gcc-4.8 \
+    g++-4.8 \
+    cmake \
+    cppcheck \
+    curl \
+    curlftpfs \
+    debconf-utils \
+    doxygen \
+    gdb \
+    gfortran \
+    git \
+    automake \
+    google-perftools \
+    graphviz \
+    lcov \
+    libatlas-base-dev \
+    libblas-dev \
+    libboost-all-dev \
+    libbz2-dev \
+    libconsole-bridge-dev \
+    libcurl4-openssl-dev \
+    libeigen3-dev \
+    libflann-dev \
+    libfreetype6-dev \
+    libgeos-dev \
+    libgtest-dev \
+    libhdf5-serial-dev \
+    libicu-dev \
+    liblapack-dev \
+    libleveldb-dev \
+    liblmdb-dev \
+    libncurses5-dev \
+    liblz4-dev \
+    libopenblas-dev \
+    libopencv-dev \
+    libopenni-dev \
+    libpcap-dev \
+    libpoco-dev \
+    libpoco-dev \
+    libproj-dev \
+    libqhull-dev \
+    libsnappy-dev \
+    libtinfo-dev \
+    libtinyxml-dev \
+    libyaml-cpp-dev \
+    lsof \
+    mpi-default-dev \
+    nfs-common \
+    python-autopep8 \
+    python-matplotlib \
+    python-pip \
+    python-psutil \
+    python-scipy \
+    python3-psutil \
+    python-opencv \
+    sip-dev \
+    subversion \
+    sudo \
+    unzip \
+    uuid-dev \
+    v4l-utils \
+    vim \
+    wget \
+    zip \
+    zlib1g-dev \
+    libvtk7-dev \
+    nasm \
+    software-properties-common 
+
+rm -rf /usr/bin/gcc /usr/bin/gcc-ar /usr/bin/gcc-nm  /usr/bin/gcc-ranlib /usr/bin/g++
+update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 10
+update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 10
+update-alternatives --install /usr/bin/cc cc /usr/bin/gcc 20
+update-alternatives --set cc /usr/bin/gcc
+update-alternatives --install /usr/bin/c++ c++ /usr/bin/g++ 20
+update-alternatives --set c++ /usr/bin/g++
+
+GCCV=`gcc --version | grep \)\ 4.8.5$ `
+GPLUSV=`g++ --version | grep \)\ 4.8.5$ `
 
 if [ -z "$GCCV" ] || [ -z "$GPLUSV" ]; then
-    echo "gcc-8/g++-8 installation or config failed"
+    echo "gcc-4.8/g++-4.8 installation or config failed"
     exit 1;
 fi
 

@@ -19,17 +19,7 @@
 # Fail on first error.
 set -e
 
-APOLLO_LIB_PATH=/usr/local/apollo
-# Expected file structure:
-#  ${APOLLO_LIB_PATH}/
-#    - jsoncpp
-#      - lib/*.so
-#    - adv_plat
-#      - include/*.h
-#      - lib/*.a
-
-mkdir -p ${APOLLO_LIB_PATH}
-cd ${APOLLO_LIB_PATH}
+pushd /usr/local/apollo
 
 # Install jsoncpp.
 wget https://apollocache.blob.core.windows.net/apollo-cache/jsoncpp.zip
@@ -41,3 +31,5 @@ unzip adv_plat.zip
 
 # Clean up.
 rm -fr jsoncpp.zip adv_plat.zip
+
+popd

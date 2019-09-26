@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ###############################################################################
-# Copyright 2018 The Apollo Authors. All Rights Reserved.
+# Copyright 2019 The Apollo Authors. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,15 +21,8 @@ set -e
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
-wget https://github.com/google/protobuf/releases/download/v3.3.0/protobuf-cpp-3.3.0.tar.gz
-tar xzf protobuf-cpp-3.3.0.tar.gz
-
-pushd protobuf-3.3.0
-./configure --prefix=/usr
-make -j8
-make install
-chmod 755 /usr/bin/protoc
-popd
-
-# Clean up.
-rm -fr protobuf-cpp-3.3.0.tar.gz protobuf-3.3.0
+ldconfig
+rm -fr /var/lib/apt/lists/* 
+apt-get clean autoclean 
+apt-get autoremove -y 
+rm -rf /tmp/*

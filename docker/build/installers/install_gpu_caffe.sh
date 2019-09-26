@@ -21,26 +21,8 @@ set -e
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
-apt-get update -y && apt-get install -y \
-    libatlas-base-dev \
-    libflann-dev \
-    libhdf5-serial-dev \
-    libicu-dev \
-    liblmdb-dev \
-    libopenblas-dev \
-    libopencv-dev \
-    libopenni-dev \
-    libqhull-dev \
-    libsnappy-dev \
-    libvtk5-dev \
-    libvtk5-qt4-dev \
-    mpi-default-dev
+cp -r third_party/caffe_x86/output-GPU/include/caffe /usr/include/caffe
+cp -r third_party/caffe_x86/output-GPU/lib /usr/lib/x86_64-linux-gnu
 
-wget https://apollocache.blob.core.windows.net/apollo-docker/caffe_x86.tar.gz
-tar xzf caffe_x86.tar.gz
-mv caffe_x86/output-GPU/include/caffe /usr/include/
-mv caffe_x86/output-GPU/lib/* /usr/lib/x86_64-linux-gnu/
-
-# Clean up.
-apt-get clean && rm -rf /var/lib/apt/lists/*
-rm -fr caffe_x86.tar.gz caffe_x86
+cp -r third_party/tensorrt3/include /usr/include/tensorrt
+cp -r third_party/tensorrt3/lib /usr/lib/x86_64-linux-gnu
