@@ -1,0 +1,17 @@
+docker run -it -v /apollo:/apollo -v /usr/lib/aarch64-linux-gnu/libcudnn.so.7.1.2:/usr/lib/aarch64-linux-gnu/libcudnn.so.7.1.2 -v /usr/include/aarch64-linux-gnu/cudnn_v7.h:/usr/include/aarch64-linux-gnu/cudnn_v7.h 8d0c8e03fc9a /bin/bash
+
+ln -s /usr/include/aarch64-linux-gnu/cudnn_v7.h /usr/include/cudnn.h
+ln -s /usr/lib/aarch64-linux-gnu/libcudnn.so.7.1.2 /usr/lib/aarch64-linux-gnu/libcudnn.so.7
+ln -s /usr/lib/aarch64-linux-gnu/libcudnn.so.7 /usr/lib/aarch64-linux-gnu/libcudnn.so
+ln -s /usr/local/cuda-9.2 /usr/local/cuda
+
+cd docker/build/installers/tmo/
+bash install_gpu_caffe.sh
+git clone https://github.com/ApolloAuto/caffe.git
+mkdir caffe/build
+cp Cuda.cmake caffe/cmake/.
+cd caffe/build
+cmake -DCUDA_ARCH_NAME=All -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_docs=OFF -DBUILD_python_layer=OFF -DUSE_OPENCV=OFF -DUSE_LEVELDB=OFF -DUSE_LMDB=OFF ..
+make all -j 6
+make install
+
